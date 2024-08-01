@@ -1,6 +1,6 @@
-DROP TABLE Orders;
-DROP TABLE Products;
-DROP TABLE Order_products;
+DROP TABLE IF EXISTS Orders;
+DROP TABLE IF EXISTS Products;
+DROP TABLE IF EXISTS Order_products;
  
 CREATE TABLE Orders
        

@@ -1,11 +1,16 @@
-import boto3
 import csv
 import psycopg2
-
-from extract_load_transform.get_connections import *
 import os
-# this is a new comment so i can test the pipeline
-ssm_env_var_name = 'ssm_env_var_name'
+
+def connect():
+    connection = psycopg2.connect(
+        dbname='bbb_db',
+        user='bbb_group',
+        password='password',
+        host='localhost',
+        port='5433'
+    )
+    return connection
 
 rs_product_table = []
 last_op = 0
@@ -174,21 +179,14 @@ def load_order_products(connection, order_products):
     except psycopg2.errors.UndefinedTable as e:
         raise Exception(f"Table not found: {e}")
 
-def lambda_handler(event, context):
-    s3 = boto3.client('s3')
+def lambda_handler(file):
 
-    bucket = event['Records'][0]['s3']['bucket']['name']
-    key = event['Records'][0]['s3']['object']['key']
-    obj = s3.get_object(Bucket=bucket, Key=key)
-    file = obj['Body'].read().decode('utf-8').split('\n')
+    # converts file & starts process
     data = convert_csv(file)
 
     try:
-        ssm_param_name = os.environ[ssm_env_var_name] or 'NOT_SET'
-        print(f'lambda_handler: ssm_param_name={ssm_param_name} from ssm_env_var_name={ssm_env_var_name}')
-
-        redshift_details = get_ssm_param(ssm_param_name)
-        conn, cur = open_sql_database_connection_and_cursor(redshift_details)
+        conn = connect()
+        cur = conn.cursor()
         
         cur.execute("SELECT MAX(order_id) FROM orders")
         global last_order
@@ -216,7 +214,6 @@ def lambda_handler(event, context):
         cur.close()
         conn.close()
 
-        print(f'lambda_handler: done')
-    except Exception as whoopsy:
-        print(f'lambda_handler: failure, error=${whoopsy}')
-        raise whoopsy
+        print(f'Pipeline: done')
+    except:
+        raise Exception("An error occurred")
