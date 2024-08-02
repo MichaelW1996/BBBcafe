@@ -179,10 +179,10 @@ def load_order_products(connection, order_products):
     except psycopg2.errors.UndefinedTable as e:
         raise Exception(f"Table not found: {e}")
 
-def lambda_handler(file):
+def lambda_handler(path):
 
     # converts file & starts process
-    data = convert_csv(file)
+    data = convert_csv(path)
 
     try:
         conn = connect()
