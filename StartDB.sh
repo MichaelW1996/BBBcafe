@@ -4,7 +4,6 @@
 
 echo "Starting the shell..."
 
-ls -l   
 cd database
 
 # check if the docker-compose.yml file exists
@@ -20,8 +19,7 @@ sudo docker compose up -d
 sudo docker compose exec app /bin/bash
 
 # add a confirm so the user can select when to kill the server
-echo "Press any key to stop the server and remove the container"
-read -p "Press enter to terminate the server"
+read -p "Press any key to terminate the server"
 
 sudo docker compose down
 exit 0
