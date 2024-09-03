@@ -37,14 +37,7 @@ def setup_database(db_schema: dict):
                 cursor.execute("SELECT 1 FROM pg_database WHERE datname = %s", (database_name,))
                 result = cursor.fetchone()
 
-                if result:
-                    # Database exists, ask user to confirm it is safe to continue
-                    response = input(f"The database {database_name} exists. Are you sure it is empty? (yes/no): ").strip().lower()
-                    if response != 'yes' and response != 'y':
-                        # User does not want to run the schema
-                        print("User did not want to continue to implement the schema.")
-                        return
-                else:
+                if not result:
                     print("Database does not exist. Cannot implement schema. To continue, please create the database {database_name}.")
                     return
 
@@ -64,10 +57,10 @@ def setup_database(db_schema: dict):
 
                     create_table_query = f"CREATE TABLE {table_name} ({fields_str}{(', ' + constraints_str) if constraints_str else ''})"
                     
-                    print(f"\n\n{create_table_query}\n\n")
+                    # print(f"\n\n{create_table_query}\n\n")
                     
                     cursor.execute(create_table_query)
-                    print(f"Table {table_name} created with fields and constraints:\n{fields_str}, {constraints_str}\n")
+                    # print(f"Table {table_name} created with fields and constraints:\n{fields_str}, {constraints_str}\n")
 
                 connection.commit()
                 print("Database setup completed.")
