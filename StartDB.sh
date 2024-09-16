@@ -26,8 +26,44 @@ sleep 2
 
 python3 sql_database_creator.py
 
+sleep 2
+
+cd ../data
+
+ZIP_FILE="coffeedata.zip"
+DEST_DIR="coffeedata"
+
+# check if the coffeedata.zip file exists
+if [ ! -f $ZIP_FILE ]; then
+    echo "coffeedata.zip file not found"
+    exit 1
+fi
+
+# check if the coffeedata directory exists
+if [ -d $DEST_DIR ]; then
+    echo "coffeedata directory already exists"
+    exit 1
+fi
+
+# unzip the coffeedata.zip file
+
+unzip -q $ZIP_FILE -d $DEST_DIR 
+
+cd ..
+sleep 2
+
+python3 src/extract_load_transform/lambda_function.py
+
+sleep 1
+
+cd data
+
+rm -rf "$DEST_DIR"
+
+cd ../database
+
 # add a confirm so the user can select when to kill the server
-read -p "Press any key to terminate the server"
+read -p "Press enter to terminate the server"
 
 sudo docker compose down
 

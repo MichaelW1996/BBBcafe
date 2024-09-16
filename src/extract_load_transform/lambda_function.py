@@ -20,21 +20,25 @@ product_id_counter = 0
 def convert_csv(file):
     list_type = list()
     id = 1 
+    # for file in os.listdir(folderpath):
+    #     if file.endswith('.csv'):
+    #         file = os.path.join(folderpath, file)
     try:
-        for row in csv.DictReader(file, fieldnames=['date_time', 'branch_location', 'customer_name', 'order_details_string', 'payment_total', 'payment_type', 'card_number']):
-            row_cleaned = row
-            row_cleaned['id'] = id
-            del row_cleaned['card_number']  # remove card number field
-            del row_cleaned['customer_name']  # remove name
-            list_type.append(row_cleaned)
-            id += 1
-        return list_type
+        with open (file, 'r') as file:
+            for row in csv.DictReader(file, fieldnames=['date_time', 'branch_location', 'customer_name', 'order_details_string', 'payment_total', 'payment_type', 'card_number']):
+                row_cleaned = row
+                row_cleaned['id'] = id
+                del row_cleaned['card_number']  # remove card number field
+                del row_cleaned['customer_name']  # remove name
+                list_type.append(row_cleaned)
+                id += 1
     except KeyError as e:
         raise Exception(f"Key not found: {e}")
     except ValueError as e:
         raise Exception(f"Value error: {e}")
     except Exception as e:
         raise Exception(f"An error occurred: {e}")
+    return list_type
 
 def first_nf(dict_list):
     output_dict_list = []   
@@ -214,6 +218,16 @@ def lambda_handler(path):
         cur.close()
         conn.close()
 
-        print(f'Pipeline: done')
+        print(f'file processed: {path}')
     except:
         raise Exception("An error occurred")
+
+
+def data_locator(directory):
+    for root, dirs, files in os.walk(directory):
+        for file in files:
+            if file.endswith('.csv'):
+                lambda_handler(os.path.join(root, file))
+    print("All files processed.")
+
+data_locator("data/coffeedata")

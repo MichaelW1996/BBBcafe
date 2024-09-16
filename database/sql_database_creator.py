@@ -76,6 +76,7 @@ if __name__ == '__main__':
             "Fields" : [
                 ("order_id", "SERIAL PRIMARY KEY"),
                 ("date_time", "TIMESTAMP"),
+                ("order_date", "DATE"),
                 ("branch_location", "VARCHAR(100)"),
                 ("payment_total", "INT"),
                 ("payment_type", "VARCHAR(4)"),
