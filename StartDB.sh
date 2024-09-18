@@ -4,6 +4,28 @@
 
 echo "Starting the shell..."
 
+read -p "Would you like to install the necessary packages? (y/n)"
+
+if [ "$REPLY" = "y" ]; then
+    # install needed packages
+    sudo apt update
+    sudo apt-get install python3-pip
+    sudo pip install python-dotenv
+    sudo pip install psycopg2-binary
+    sudo apt install unzip
+    sudo apt-get update
+    sudo apt-get install ca-certificates curl
+    sudo install -m 0755 -d /etc/apt/keyrings
+    sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+    sudo chmod a+r /etc/apt/keyrings/docker.asc
+    echo \
+      "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+      $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+      sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+    sudo apt-get update
+    sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+fi
+
 cd database
 
 # check if the docker-compose.yml file exists
@@ -62,8 +84,12 @@ rm -rf "$DEST_DIR"
 
 cd ../database
 
+# GIVE USER clickable LINK TO GRAFANA DASHBOARD at localhost:3000
+
+echo "Grafana Dashboard is available at http://localhost:3000 with username: admin and password: admin"
+
 # add a confirm so the user can select when to kill the server
-read -p "Press enter to terminate the server"
+read -p "Press enter to terminate the server and remove the processed data"
 
 sudo docker compose down
 
