@@ -17,3 +17,11 @@ services:
     restart: unless-stopped
     ports:
      - '3000:3000'
+    volumes:
+    - ./grafana_provisioning/datasources:/etc/grafana/provisioning/datasources
+    - ./grafana_provisioning/dashboard.yml:/etc/grafana/provisioning/dashboards/main.yml
+    - ./grafana_provisioning/dashboards:/var/lib/grafana/dashboards
+    depends_on:
+    - db
+volumes:
+  grafana_data:

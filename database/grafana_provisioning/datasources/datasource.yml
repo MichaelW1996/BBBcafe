@@ -1,0 +1,19 @@
+apiVersion: 1
+datasources:
+  - name: PostgreSQL
+    type: postgres
+    access: proxy
+    editable: true
+    isDefault: true
+    url: postgres_service:5432  # Use the PostgreSQL container name and port
+    database: bbb_db
+    user: bbb_group
+    secureJsonData:
+      password: password
+    jsonData:
+      sslmode: disable
+      postgresVersion: 1600
+      tlsAuth: false
+      tlsAuthWithCACert: false
+      useScram: true  # Enable scram-sha-256 authentication
+
