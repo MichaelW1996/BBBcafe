@@ -1,1 +1,1 @@
-wsl sh StartDB.sh
+wsl bash StartDB.sh

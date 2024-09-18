@@ -1,3 +1,4 @@
+#!/bin/bash
 # write a script to compose from the docker-compose.yml file and open a terminal with option to close and remove the container upon exit
 
 # navigate to datbase directory where docker-compose.yml file is located
@@ -86,7 +87,7 @@ cd ../database
 
 # GIVE USER clickable LINK TO GRAFANA DASHBOARD at localhost:3000
 
-echo "Grafana Dashboard is available at http://localhost:3000 with username: admin and password: admin"
+echo "Grafana Dashboard is available at http://localhost:3000 with username: admin and password: admin, then click on the dashboard tab"
 
 # add a confirm so the user can select when to kill the server
 read -p "Press enter to terminate the server and remove the processed data"
