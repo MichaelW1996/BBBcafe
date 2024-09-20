@@ -2,6 +2,7 @@
 # write a script to compose from the docker-compose.yml file and open a terminal with option to close and remove the container upon exit
 
 # navigate to datbase directory where docker-compose.yml file is located
+cd app
 
 echo "Starting the shell..."
 

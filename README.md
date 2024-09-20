@@ -1,40 +1,50 @@
 # BBB [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-Bureau for Business Bean (BBB) group
-
-        # Members:
-        Kaelen 
-        Michael
-        Phoenix 
-        Fruzsi
-
-  ## <span id=Description> Description </span>
-  A sales forecast application
-
-  ## Elevator Pitch 
-  [For]
-  Super cafe branch
-  [Who]
-  Needs a data pipeline automation software for sales analysis and forecasting
-  [The]
-  Bean Business Bureau data system© 
-  [Is a]
-  Analysis and visualization tool for business planning & forecasting
-  [That]
-  Tracks key metrics such as overall sales & product popularity in various time frames
-  [Unlike]
-  How is this different to competition filtered data for bespoke graphs & visualizations
-  easy to add data with CSV - column naming & error detection
-  [Our product]
-  Accurate, reliable, durable, secure - cleansing, Expandable, intuitive, dynamic
 
   ## Contents
+  -[Credits](#Credits)  
   -[Description](#Description)  
   -[Install](#Install)  
   -[Usage Info](#Usage)  
-  -[Contribution](#Contribution)  
   -[Questions](#Questions)  
   -[Tests](#Tests)  
   -[License](#License)  
+
+## <span id=Credits>Credits </span>
+
+#### Containerisation & scripting
+Michael https://github.com/MichaelW1996  
+
+#### Underlying data pipeline:
+Kaelen - https://github.com/kaelan-the-G  
+Michael -  https://github.com/MichaelW1996  
+Phoenix - https://github.com/PhoenixCaine  
+Fruzsi - https://github.com/DebFruzsi
+
+
+
+## <span id=Description> Description </span> 
+
+  A Data pipeline to process sales data for a cafe business and produce useful business insights with visualisation, initially hosted on AWS this project now runs locally as a demonstration of skills developed over the duration of a Data engineering bootcamp, skills included in the production of this application include:
+
+    > Data ingestion from CSV
+    > Sensitive data removal
+    > Data normalisation to 3nf using Python
+    > Database design (this project uses PostgreSQL)
+    > Unit Testing
+    > Containerisation using Docker
+    > Visualisations using Grafana - Utilises SQL queries
+    > Shell Scripting to deploy/dismantle application
+    > Version Control using Git/Github
+    > Project management skills including meetings with a faux client
+    > Implementation of Agile working methodology with rotating scrum master
+    
+#### Deprecated Features
+
+    > AWS EC2 instance for visualisation & monitoring hosting
+    > AWS Lambda for ETL pipeline
+    > AWS S3 Bucket & Redshift for data storage and databasing
+    > AWS Cloudformation & Github Actions for CI/CD
+
 
   ## Product initiation document
   https://docs.google.com/document/d/1FSQwxu9fgONe1-Cq1r67GGJAH0eON9phLxYBTDiPlAs/edit?usp=sharing
@@ -43,25 +53,39 @@ Bureau for Business Bean (BBB) group
   https://miro.com/app/board/uXjVK5mj_K8=/
 
   ## <span id=Install> Install </span>
-  1. Clone this repo in terminal using ***git clone https://github.com/generation-de-nat2/Bureau-for-Bean-Business.git*** or by simply downloading it as a zip file
-  2. Make sure you have a working version of AWS CLI and have setup an SSO profile. For instructions and more info see: https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-sso.html
-  3. #Leave the rest for later 
-  aws cloudformation deploy --template-file bbb-stack-template-S3.yml --stack-name bbb-stack --region eu-west-1 --profile test
-  see requirements.txt
+
+  > ! Linux users !  
+  > Run the StartDB.sh file
+  
+  > ! Windows users !  
+  >Ensure WSL is installed/set up  
+  >Run the StartDBWindows.sh file 
+
+  When prompted if the user would like to install packages, type "y".  
+  This installs docker, unzip & python packages : dotenv, psycopg2 (for postgreSQL),   
+  If user already has these packages feel free to decline packages by typing "n".
+
+  Once packages install the program will start
 
   ## <span id=Usage> Usage </span>
-  run remove_colums_import CSV.py
+  > ! Linux users !  
+  > Run the StartDB.sh file
+  
+  > ! Windows users !  
+  >Ensure WSL is installed/set up  
+  >Run the StartDBWindows.sh file 
 
-  ## <span id=Contribution> Contribution </span>
-  Created by BBBgroup  
-  See github to contribute or report bugs: https://github.com/https://github.com/generation-de-nat2/Bureau-for-Bean-Business
+  Wait for program to finish processing all records then click on the provided link to grafana & use the login details given in the terminal
+
+  Pressing enter on the terminal will stop and clean up the containers - each time the user launches the app it will process all data again & rebuild dashboards - changes made will not be saved
 
   ## <span id=Questions> Questions </span>
-  For issues or feature requests: https://github.com/https://github.com/generation-de-nat2/Bureau-for-Bean-Business  
+  For issues or feature requests: https://github.com/MichaelW1996/BBBcafe  
   For other questions, please email me: 
+  contact@michaeljohnwalters.co.uk
 
   ## <span id=Tests> Tests </span>
-  formal tests to come
+  Tests may be found in the Tests subfolder, these tests are in development & are still evolving
 
   ## <span id=License> License </span>
   MIT  
