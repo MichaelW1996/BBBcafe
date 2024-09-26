@@ -12,8 +12,8 @@ if [ "$REPLY" = "y" ]; then
     # install needed packages
     sudo apt update
     sudo apt-get install python3-pip
-    sudo pip install python-dotenv
-    sudo pip install psycopg2-binary
+    sudo apt install python3-dotenv
+    sudo apt install python3-psycopg2
     sudo apt install unzip
     sudo apt-get update
     sudo apt-get install ca-certificates curl
